@@ -2,13 +2,14 @@ const fs = require('fs');
 
 const cache = {};
 const calcHash = list => list.reduce((acc, next) => acc + next, '');
+const outOfRange = 10000;
 
 const countBranches = (list) => {
 	if (cache[calcHash(list)]) {
 		return cache[calcHash(list)];
 	}
 
-	const [ first, second = 10000, third = 10000, fourth = 10000, ...tail ] = list;
+	const [ first, second = outOfRange, third = outOfRange, fourth = outOfRange, ...tail ] = list;
 	const diffOne = second - first;
 	const diffTwo = third - second;
 	const diffThree = fourth - third;
@@ -17,7 +18,7 @@ const countBranches = (list) => {
 	const jumpTwo = diffOne + diffTwo;
 	const jumpThree = diffOne + diffTwo + diffThree;
 
-	if (second === 10000) {
+	if (second === outOfRange) {
 		return 1;
 	}
 
